@@ -125,4 +125,10 @@
     from zh
     where login_act=#{loginAct} and login_pwd=#{loginPwd}
   </select>
+  <select id="selectAllUsers" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from zh
+    where division='1'
+  </select>
 </mapper>

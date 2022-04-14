@@ -167,7 +167,7 @@ String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.ge
             <li class="liClass"><a href="workbench/main/index.do" target="workareaFrame"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
             <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-tag"></span> 动态</a></li>
             <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-time"></span> 审批</a></li>
-            <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-user"></span> 学生管理</a></li>
+            <li class="liClass"><a href="workbench/student/index.do;" target="workareaFrame"><span class="glyphicon glyphicon-user"></span> 学生管理</a></li>
             <li class="liClass"><a href="activity/index.html" target="workareaFrame"><span class="glyphicon glyphicon-circle-arrow-up"></span> 上传资源</a></li>
             <li class="liClass"><a href="clue/index.html" target="workareaFrame"><span class="glyphicon glyphicon-search"></span> 查询</a></li>
             <li class="liClass"><a href="customer/index.html" target="workareaFrame"><span class="glyphicon glyphicon-edit"></span> 留言</a></li>
