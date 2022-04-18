@@ -5,7 +5,7 @@
  * <p>
  * Author:   taozi
  * <p>
- * Date:     2022/4/11 13:16
+ * Date:     2022/4/16 11:17
  * <p>
  * Description:
  * <p>
@@ -28,17 +28,15 @@ import java.util.UUID;
  *
  * @author taozi
 
- * @create 2022/4/11
+ * @create 2022/4/16
 
  * @since 1.0.0
 
  */
 
-/**
- * 获取uuid的值
- */
 public class UUIDUtils {
     public static String getUUID(){
         return UUID.randomUUID().toString().replaceAll("-","");
     }
+
 }

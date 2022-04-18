@@ -20,8 +20,8 @@
 package org.example.office.workbench.web.controller;
 
 
-import org.apache.poi.ss.formula.functions.Replace;
 import org.example.office.commons.contants.Contants;
+import org.example.office.commons.domain.ReturnObject;
 import org.example.office.commons.utils.UUIDUtils;
 import org.example.office.settings.domain.User;
 import org.example.office.settings.service.UserService;
@@ -33,8 +33,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -63,19 +65,51 @@ public class StudentController {
         return "workbench/student/index";
     }
     @RequestMapping("/workbench/student/saveCreateStudent.do")
-    public @ResponseBody Object saveCreateStudent(Student student){
+    public @ResponseBody Object saveCreateStudent(Student student, HttpSession session){
         User user=(User) session.getAttribute(Contants.SESSION_USER);
         //封装参数
         student.setId(UUIDUtils.getUUID());
-        student.getCreateBy(user.getId());
-        //调用service曾方法，保存创建的市场活动
+        student.setCreateBy(user.getId());
+
+        ReturnObject returnObject=new ReturnObject();
         try {
-            int ret=studentService.saveCreatStudent(student);
+            //调用service层方法，保存创建的市场活动
+            int ret = studentService.saveCreateStudent(student);
+
+            if(ret>0){
+                returnObject.setCode(Contants.RETURN_OBJECT_CODE_SUCCESS);
+            }else{
+                returnObject.setCode(Contants.RETURN_OBJECT_CODE_FALL);
+                returnObject.setMessage("系统忙,请稍后重试....");
+            }
         }catch (Exception e){
             e.printStackTrace();
+
+            returnObject.setCode(Contants.RETURN_OBJECT_CODE_FALL);
+            returnObject.setMessage("系统忙,请稍后重试....");
         }
 
-        return null;
+        return returnObject;
     }
 
+    @RequestMapping("/workbench/student/queryStudentByConditionForPage.do")
+    public @ResponseBody Object queryStudentByConditionForPage(String name,String owner,String age,String email,
+    int pageNo,int pageSize){
+        //封装参数
+        Map<String,Object> map=new HashMap<>();
+        map.put("name",name);
+        map.put("owner",owner);
+        map.put("age",age);
+        map.put("email",email);
+        map.put("begonNo",(pageNo-1)*pageSize);
+        map.put("pageSize",pageSize);
+        //调用service层方法，查询数据
+        List<Student> studentList=studentService.queryStudentByConditionForPage(map);
+        int totalRows=studentService.queryCountOfStudentByCondition(map);
+        //根据查询结果，生成响应信息
+        Map<String,Object> retMap=new HashMap<>();
+        retMap.put("studentList",studentList);
+        retMap.put("totalRows",totalRows);
+        return retMap;
+    }
 }

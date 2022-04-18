@@ -26,6 +26,9 @@ import org.example.office.workbench.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈〉
@@ -44,7 +47,18 @@ public class StudentServiceImpl implements StudentService {
     private StudentMapper studentMapper;
 
     @Override
-    public int saveCreatStudent(Student student) {
-        return studentMapper.insertStudent(student );
+    public int saveCreateStudent(Student student) {
+        return studentMapper.insertStudent(student);
+
+    }
+
+    @Override
+    public List<Student> queryStudentByConditionForPage(Map<String, Object> map) {
+        return studentMapper.selectStudentByConditionForPage(map);
+    }
+
+    @Override
+    public int queryCountOfStudentByCondition(Map<String, Object> map) {
+        return studentMapper.selectCountOfStudentByCondition(map);
     }
 }
